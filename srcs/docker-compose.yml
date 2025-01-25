@@ -1,0 +1,59 @@
+services:
+  nginx:
+    build: requirements/nginx
+    image: nginx:oo
+    container_name: nginx
+    ports:
+      - 443:443
+    depends_on:
+      - wordpress
+
+  wordpress:
+    build: requirements/mariadb
+    image: wordpress:oo
+    container_name: wordpress
+    depends_on:
+      - mariadb
+      - redis
+  
+  mariadb:
+    build: requirements/mariadb
+    image: mariadb:oo
+    container_name: mariadb
+
+
+  redis:
+    build: requirements/bonus/redis
+    image: redis:oo
+    container_name: redis
+    ports:
+      - 6379:6379
+
+  protainer:
+    build: requirements/bonus/portainer
+    image: portainer:oo
+    container_name: portainer
+    ports:
+      - 9443:9443
+
+  adminer:
+    build: requirements/bonus/adminer
+    image: adminer:oo
+    container_name: adminer
+    ports:
+      - 8080:8080
+
+  pfe:
+    build: requirements/bonus/pfe
+    image: pfe:oo
+    container_name: pfe
+    ports:
+      - 8008:8008
+
+volumes:
+  db:
+  pfe:
+  php:
+
+networks:
+  inception:
