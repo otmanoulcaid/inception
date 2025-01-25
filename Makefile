@@ -22,5 +22,5 @@ restart :
 
 clean : down
 
-fclean : 
+fclean :
 	docker compose -f $(YAML_PATH) down -v
